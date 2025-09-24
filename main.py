@@ -83,7 +83,7 @@ if __name__ == '__main__':
     parser.add_argument('--num_workers', type=int, default=4)
     parser.add_argument('--model_save_path', type=str, default='checkpoints')
 
-    parser.add_argument('--num_epochs', type=int, default=1)
+    parser.add_argument('--num_epochs', type=int, default=60)
     parser.add_argument('--batch_size', type=int, default=64)
     parser.add_argument('--patience', type=int, default=200)
     parser.add_argument('--peak_lr', type=float, default=2e-3)
