@@ -54,7 +54,7 @@ if __name__ == '__main__':
 
     parser.add_argument('--dataset', type=str, default='MSL')
     parser.add_argument('--win_size', type=int, default=100)
-    parser.add_argument('--data_path', type=str, default='./data/NIPS_TS_GECCO/')
+    parser.add_argument('--data_path', type=str, default='./data/MSL/')
 
 
     parser.add_argument('--input_c', type=int, default=9)
