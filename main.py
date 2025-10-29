@@ -48,7 +48,7 @@ def main(config_setting):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--framework', nargs="+", type=str, default=['Dual-STF'])
+    parser.add_argument('--framework', nargs="+", type=str, default=['DualSTF'])
     parser.add_argument('--test_only', default=False, action="store_true")
 
 
