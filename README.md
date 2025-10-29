@@ -19,7 +19,7 @@ Before running the code, please make sure the datasets are organized as expected
 ## Run Single-Domain Time Series Anomaly Detection
 
 python main.py \
-    --framework Dual-STF \
+    --framework DualSTF \
     --dataset <dataset_names> \
     --win_size 100 \
     --data_path ./data \
