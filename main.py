@@ -52,7 +52,7 @@ if __name__ == '__main__':
     parser.add_argument('--test_only', default=False, action="store_true")
 
 
-    parser.add_argument('--dataset', type=str, default='NIPS_TS_Water')
+    parser.add_argument('--dataset', type=str, default='MSL')
     parser.add_argument('--win_size', type=int, default=100)
     parser.add_argument('--data_path', type=str, default='./data/NIPS_TS_GECCO/')
 
