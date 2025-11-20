@@ -123,7 +123,7 @@ class TokenEmbedding(nn.Module):
                 self.encoder_layers.append(nn.ModuleList([nn.Linear(updated_in_dim, extended_dim, bias=False)
                                                           for _ in range(num_in_fc_networks)]))
                 self.norm_layers.append(nn.ModuleList([nn.LayerNorm(extended_dim) for _ in range(num_in_fc_networks)]))
-            elif e_layer == 'multiscale_conv1d':
+            elif e_layer == 'multiatt_conv':
                 for _ in range(n_layers):
                     self.encoder_layers.append(Initi_Block(in_channels=updated_in_dim,
                                                                out_channels=extended_dim,
