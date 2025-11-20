@@ -133,7 +133,7 @@ class TokenEmbedding(nn.Module):
                                                    )
                     self.norm_layers.append(nn.ModuleList([nn.LayerNorm(self.window_size)
                                                            for _ in range(num_in_fc_networks)]))
-            elif e_layer == 'inter_fc_transformer':
+            elif e_layer == 'in_tf':
                 w_model = self.window_size // 2 + 1
         
                 self.use_dual_block = True
@@ -281,7 +281,7 @@ class TokenEmbedding(nn.Module):
                 x = torch.fft.rfft(x, dim=-2)
                 x = complex_operator(embedding_layer, x)
                 x = torch.fft.irfft(x, dim=-2)
-            elif branch_layer in ['inter_fc_transformer', 'intra_fc_transformer']:
+            elif branch_layer in ['in_tf', 'intra_fc_transformer']:
             
                 x = torch.fft.rfft(x, dim=-1)
                 if branch_layer == 'intra_fc_transformer':
