@@ -16,7 +16,7 @@ def test_semantic_guidance():
         'd_model': 32,
         'encoder_layers': 1,
         'branch1_networks': ['fc_linear', 'intra_fc_transformer', 'multiscale_ts_attention'],
-        'branch2_networks': ['multiscale_conv1d', 'inter_fc_transformer'],
+        'branch2_networks': ['multiatt_conv', 'inter_fc_transformer'],
         'branch1_match_dimension': 'first',
         'branch2_match_dimension': 'first',
         'decoder_networks': ['linear'],
