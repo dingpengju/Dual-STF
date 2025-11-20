@@ -267,7 +267,7 @@ class TokenEmbedding(nn.Module):
             if branch_layer not in ['linear', 'fc_linear', 'multiscale_ts_attention']:
                 x = x.permute(0, 2, 1)
 
-            if branch_layer == 'multiscale_conv1d':
+            if branch_layer == 'multiatt_conv':
                 x = complex_operator(embedding_layer, x)
             elif branch_layer == 'multiscale_ts_attention' and last_semantics is not None:
            
