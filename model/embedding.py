@@ -55,7 +55,7 @@ class Encoder(nn.Module):
 
 
 class TokenEmbedding(nn.Module):
-    def __init__(self, in_dim, d_model, n_window=100, n_layers=1, branch_layers=['fc_linear', 'inner_tf'],
+    def __init__(self, in_dim, d_model, n_window=100, n_layers=1, branch_layers=['st_linear', 'inner_tf'],
                  group_embedding='False', match_dimension='first', kernel_size=[5], multiscale_patch_size=[10, 20],
                  init_type='normal', gain=0.02, dropout=0.1):
         super(TokenEmbedding, self).__init__()
@@ -114,7 +114,7 @@ class TokenEmbedding(nn.Module):
             if e_layer == 'dropout':
                 self.encoder_layers.append(nn.Dropout(p=dropout))
                 self.norm_layers.append(nn.Identity())
-            elif e_layer == 'fc_linear':
+            elif e_layer == 'st_linear':
                 self.encoder_layers.append(nn.ModuleList([nn.Linear(updated_in_dim, extended_dim, bias=False)
                                                          for _ in range(num_in_fc_networks)])
                                            )
@@ -264,7 +264,7 @@ class TokenEmbedding(nn.Module):
             norm_layer = self.norm_layers[i]
             branch_layer = self.branch_layers[i]
             
-            if branch_layer not in ['linear', 'fc_linear', 'multiscale_att']:
+            if branch_layer not in ['linear', 'st_linear', 'multiscale_att']:
                 x = x.permute(0, 2, 1)
 
             if branch_layer == 'multiatt_conv':
@@ -277,7 +277,7 @@ class TokenEmbedding(nn.Module):
    
                 x, attn_maps = embedding_layer(x)
                 attention_maps = attn_maps 
-            elif branch_layer in ['fc_linear']:
+            elif branch_layer in ['st_linear']:
                 x = torch.fft.rfft(x, dim=-2)
                 x = complex_operator(embedding_layer, x)
                 x = torch.fft.irfft(x, dim=-2)
@@ -367,7 +367,7 @@ class TokenEmbedding(nn.Module):
 
             x = complex_operator(norm_layer, x)
 
-            if branch_layer not in ['linear', 'fc_linear', 'multiscale_att']:
+            if branch_layer not in ['linear', 'st_linear', 'multiscale_att']:
                 x = x.permute(0, 2, 1)
 
             latent_list.append(x)
