@@ -66,7 +66,7 @@ if __name__ == '__main__':
     parser.add_argument('--branches_group_embedding', type=str, default='False_False', choices=['True_True', 'True_False', 'False_True', 'False_False'], help="The parameter is used only when conv1d is employed in the encoder layer")
     parser.add_argument('--multiscale_kernel_size', nargs="+", type=int, default=[5], help="The parameter is used when conv1d is employed in the encoder layer")
     parser.add_argument('--multiscale_patch_size', nargs="+", type=int, default=[10, 20, 30], help="The parameter is used when multi-attention is employed in the encoder layer")
-    parser.add_argument('--branch1_networks', nargs="+", type=str, default=['fc_linear', 'intra_fc_transformer', 'multiscale_ts_attention'])
+    parser.add_argument('--branch1_networks', nargs="+", type=str, default=['fc_linear', 'inner_tf', 'multiscale_ts_attention'])
     parser.add_argument('--branch1_match_dimension', type=str, default='first', choices=['none', 'first', 'middle', 'last'])
     parser.add_argument('--branch2_networks', nargs="+", type=str, default=['multiatt_conv', 'in_tf'])
     parser.add_argument('--branch2_match_dimension', type=str, default='first', choices=['none', 'first', 'middle', 'last'])
