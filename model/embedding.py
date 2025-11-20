@@ -191,7 +191,7 @@ class TokenEmbedding(nn.Module):
            
                 self.norm_layers.append(nn.LayerNorm(extended_dim))
 
-            elif e_layer == 'multiscale_ts_attention':
+            elif e_layer == 'multiscale_att':
                 self.encoder_layers.append(Initial_Att(w_size=self.window_size,
                                                                      in_dim=extended_dim,
                                                                      d_model=extended_dim,
@@ -264,16 +264,16 @@ class TokenEmbedding(nn.Module):
             norm_layer = self.norm_layers[i]
             branch_layer = self.branch_layers[i]
             
-            if branch_layer not in ['linear', 'fc_linear', 'multiscale_ts_attention']:
+            if branch_layer not in ['linear', 'fc_linear', 'multiscale_att']:
                 x = x.permute(0, 2, 1)
 
             if branch_layer == 'multiatt_conv':
                 x = complex_operator(embedding_layer, x)
-            elif branch_layer == 'multiscale_ts_attention' and last_semantics is not None:
+            elif branch_layer == 'multiscale_att' and last_semantics is not None:
            
                 x, attn_maps = embedding_layer(x, semantics=last_semantics)
                 attention_maps = attn_maps 
-            elif branch_layer == 'multiscale_ts_attention':
+            elif branch_layer == 'multiscale_att':
    
                 x, attn_maps = embedding_layer(x)
                 attention_maps = attn_maps 
@@ -367,7 +367,7 @@ class TokenEmbedding(nn.Module):
 
             x = complex_operator(norm_layer, x)
 
-            if branch_layer not in ['linear', 'fc_linear', 'multiscale_ts_attention']:
+            if branch_layer not in ['linear', 'fc_linear', 'multiscale_att']:
                 x = x.permute(0, 2, 1)
 
             latent_list.append(x)
