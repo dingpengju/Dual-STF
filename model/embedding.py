@@ -55,7 +55,7 @@ class Encoder(nn.Module):
 
 
 class TokenEmbedding(nn.Module):
-    def __init__(self, in_dim, d_model, n_window=100, n_layers=1, branch_layers=['fc_linear', 'intra_fc_transformer'],
+    def __init__(self, in_dim, d_model, n_window=100, n_layers=1, branch_layers=['fc_linear', 'inner_tf'],
                  group_embedding='False', match_dimension='first', kernel_size=[5], multiscale_patch_size=[10, 20],
                  init_type='normal', gain=0.02, dropout=0.1):
         super(TokenEmbedding, self).__init__()
@@ -162,7 +162,7 @@ class TokenEmbedding(nn.Module):
             
                 self.norm_layers.append(nn.LayerNorm(extended_dim))
 
-            elif e_layer == 'intra_fc_transformer':
+            elif e_layer == 'inner_tf':
                 w_model = self.window_size // 2 + 1
           
                 self.use_dual_block = True
@@ -281,10 +281,10 @@ class TokenEmbedding(nn.Module):
                 x = torch.fft.rfft(x, dim=-2)
                 x = complex_operator(embedding_layer, x)
                 x = torch.fft.irfft(x, dim=-2)
-            elif branch_layer in ['in_tf', 'intra_fc_transformer']:
+            elif branch_layer in ['in_tf', 'inner_tf']:
             
                 x = torch.fft.rfft(x, dim=-1)
-                if branch_layer == 'intra_fc_transformer':
+                if branch_layer == 'inner_tf':
                     x = x.permute(0, 2, 1)
                 
                 if not torch.is_complex(x):
@@ -349,7 +349,7 @@ class TokenEmbedding(nn.Module):
                     semantics_list.append(last_semantics)
                     dual_block_idx += 1
                     
-                if branch_layer == 'intra_fc_transformer':
+                if branch_layer == 'inner_tf':
                     x = x.permute(0, 2, 1)
                 x = torch.fft.irfft(x, dim=-1)
                 
